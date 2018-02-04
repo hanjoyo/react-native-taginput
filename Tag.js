@@ -1,9 +1,11 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import {
   StyleSheet,
   View,
   Text,
   TouchableHighlight,
+  ViewPropTypes,
 } from 'react-native';
 
 const Tag = ({
@@ -21,7 +23,7 @@ const Tag = ({
       height:20,
     },
     text: {
-      fontSize: 10,
+      fontSize: 14,
       color: '#ffffff'
     },
   })
@@ -35,7 +37,7 @@ const Tag = ({
 
 Tag.propTypes = {
   text: PropTypes.string,
-  tagContainer: View.propTypes.style,
+  tagContainer: ViewPropTypes.style,
   onPress: PropTypes.func,
 }
 

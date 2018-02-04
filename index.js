@@ -1,6 +1,7 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,32 +9,34 @@ import {
   TextInput,
   ListView,
   TouchableHighlight,
+  ViewPropTypes,
 } from 'react-native';
 
 import Tag from './Tag';
+import { Colors, Styles } from '../../App/themes/colors'
 
 export default class TagInput extends Component {
 
   static propTypes = {
-    initialTags: React.PropTypes.arrayOf(React.PropTypes.string),
-    suggestions: React.PropTypes.arrayOf(React.PropTypes.string),
-    placeholder: React.PropTypes.string,
-    footerText: React.PropTypes.string,
-    height: React.PropTypes.number,
-    fontSize: React.PropTypes.number,
-    containerStyle: View.propTypes.style,
-    inputContainerStyle: View.propTypes.style,
+    initialTags: PropTypes.arrayOf(PropTypes.string),
+    suggestions: PropTypes.arrayOf(PropTypes.string),
+    placeholder: PropTypes.string,
+    footerText: PropTypes.string,
+    height: PropTypes.number,
+    fontSize: PropTypes.number,
+    containerStyle: ViewPropTypes.style,
+    inputContainerStyle: ViewPropTypes.style,
     textInputStyle: TextInput.propTypes.style,
     listStyle: ListView.propTypes.style,
-    onUpdateTags: React.PropTypes.func,
-    onUpdateLayout: React.PropTypes.func,
+    onUpdateTags: PropTypes.func,
+    onUpdateLayout: PropTypes.func,
   }
 
   static defaultProps = {
     initialTags: [],
     suggestions: [],
     placeholder: 'Select tag or enter tag name...',
-    footerText: 'Add a new tag',
+    footerText: 'Click to Add New Tag',
     onUpdateTags: () => {},
     onUpdateLayout: () => {},
     containerStyle: null,
@@ -161,7 +164,7 @@ export default class TagInput extends Component {
       <ListView
         style={[styles.list, listPosition, listStyle]}
         ref='listView'
-        keyboardShouldPersistTaps={true}
+        keyboardShouldPersistTaps='always'
         dataSource={dataSource}
         enableEmptySections={true}
         renderRow={this._renderRow.bind(this)}
@@ -215,7 +218,7 @@ export default class TagInput extends Component {
             onFocus={this._onFocus.bind(this)}
             onBlur={this._onBlur.bind(this)}
             autoCorrect={false}
-            autoCapitalize='none'
+            autoCapitalize={'words'}
           />
         </View>
         {this._getListView()}
@@ -239,19 +242,20 @@ const styles = StyleSheet.create({
   },
   textinput: {
     flex: 1,
-    fontSize:10,
+    fontSize:14,
     alignSelf: 'stretch',
     minWidth: 50,
     height:20,
     margin:2
   },
   rowContainer: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.background,
     justifyContent:'center',
     padding:10,
   },
   text: {
-    fontSize: 10,
+    color: 'beige',
+    fontSize: 14,
   },
   separator: {
     height:1,
@@ -260,5 +264,8 @@ const styles = StyleSheet.create({
   },
   list: {
     position: 'absolute',
+    backgroundColor: Colors.background,
+    minHeight: 20,
+    zIndex: 100,
   }
 });
